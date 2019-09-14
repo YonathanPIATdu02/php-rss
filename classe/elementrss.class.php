@@ -30,6 +30,11 @@ class ElementRSS {
      */
     public function __construct(string $titre_flux, DOMelement $node)
     {
+        $this->$_flux = $titre_flux;
+        foreach($node){
+            $ = $->getElementsByTagName("")[0]->nodeValue;
+        }
+
     }
 
     /** Accès au nom du flux
