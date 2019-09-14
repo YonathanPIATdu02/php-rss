@@ -10,8 +10,7 @@ $titre = $titres[0]->nodeValue;
 $html->appendContent("<h1>Les nouvelles de '$titre'</h1>");
 foreach($items as $item){
     $titre = $item->getElementsByTagName("title")[0]->nodeValue;
-    $html->appendContent("<p>".$titre."</p>");
-    
+    $html->appendContent("<div>".$titre."</div>");
 }
 
 echo $html->toHTML();
