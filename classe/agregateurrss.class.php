@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Agrégateur de flux RSS
  */
@@ -19,6 +20,18 @@ class AgregateurRSS {
      */
     public function ajouterFlux(string $url, string $titre_flux=null) : void
     {
+        $xml = new DOMdocument();
+        if(!$xml->load($url)){
+            throw new exeption("le flux ne peut pas être chargé");
+        }
+        if($titre_flux == null){
+            $titres = $xml->getElementsByTagName("title");
+            $titre_flux = $titres[0]->nodeValue;
+        }
+        $items = $xml->getElementsByTagName("item");
+        foreach($items as $item){
+            $this->_elements[] = new ElementRSS($titre_flux, $item);
+        }
     }
 
     /**
@@ -28,6 +41,23 @@ class AgregateurRSS {
      */
     public function toHTML() : string
     {
+        $html="";
+        foreach($this->_elements as $element){
+            $date = $element->date();
+            $lien = $element->url();
+            $flux = $element->flux();
+            $titre = $element->titre();
+            $html.=<<<HTML
+            <div class='rss'>
+                <span class='date'>$date</span>
+                <span class='flux'>$flux</span>
+                :
+                <a class='lien' href='$lien'>$titre</a>
+            </div>      
+
+HTML;
+        }
+        return $html;
     }
 
     /**

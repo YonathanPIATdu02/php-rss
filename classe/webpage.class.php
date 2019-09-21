@@ -80,7 +80,8 @@ class WebPage
         else
         {
             
-            $html=<<<html
+            $html=<<<HTML
+            <html>
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
                 <title>$this->title</title>
@@ -90,7 +91,8 @@ class WebPage
                 $this->body
                 <footer>Dernière modification de cette page le $date</footer>
             </body>
-html;
+            </html>
+HTML;
             return $html;
         }      
         

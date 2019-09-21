@@ -30,10 +30,10 @@ class ElementRSS {
      */
     public function __construct(string $titre_flux, DOMelement $node)
     {
-        $this->$_flux = $titre_flux;
-        foreach($node){
-            $ = $->getElementsByTagName("")[0]->nodeValue;
-        }
+        $this->_flux = $titre_flux;
+        $this->_titre = $node->getElementsByTagName("title")[0]->nodeValue;
+        $this->_url = $node->getElementsByTagName("link")[0]->nodeValue;
+        $this->_timestamp = strtotime($node->getElementsByTagName("pubDate")[0]->nodeValue);
 
     }
 
@@ -43,6 +43,7 @@ class ElementRSS {
      */
     public function flux() : string
     {
+        return $this->_flux;
     }
 
     /** Accès au titre de l'élément
@@ -51,6 +52,7 @@ class ElementRSS {
      */
     public function titre() : string
     {
+        return $this->_titre;
     }
 
     /** Accès à l'URL de l'élément
@@ -59,6 +61,7 @@ class ElementRSS {
      */
     public function url() : string
     {
+        return $this->_url;
     }
 
     /** Accès à la date de publication de l'élément sous forme de timestamp
@@ -67,6 +70,7 @@ class ElementRSS {
      */
     public function timestamp() : int
     {
+        return $this->_timestamp;
     }
 
     /** Accès à la date de publication de l'élément sous forme de texte
@@ -75,6 +79,7 @@ class ElementRSS {
      */
     public function date() : string
     {
+        return date("D, d M Y H:i:s" , $this->_timestamp);
     }
 
     /** Comparaison alphabétique des noms des flux de deux éléments
